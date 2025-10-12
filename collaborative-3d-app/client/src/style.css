@@ -1,3 +1,6 @@
-@import url('https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css');
-html,body,#root { height: 100%; margin: 0; font-family: Inter, system-ui, Arial; }
-canvas { display: block; }
+/* client/src/styles.css */
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background-color: #f9f9f9;
+}

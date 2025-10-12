@@ -6,6 +6,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import projectRoutes from "./routes/project.routes";
 import Project from "./models/Project";
+import path from 'path';
 
 
 dotenv.config();
@@ -14,6 +15,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use("/projects", projectRoutes);
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
 const server = http.createServer(app);
 const io = new Server(server, { cors: { origin: "*" } });
