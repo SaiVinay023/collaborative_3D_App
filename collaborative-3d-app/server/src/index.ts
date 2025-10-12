@@ -55,7 +55,7 @@ io.on("connection", (socket) => {
   });
 });
 
-const PORT = process.env.PORT || 5000; // ✅ define PORT
+const PORT = process.env.PORT || 4000; // ✅ define PORT
 
 mongoose
   .connect(process.env.MONGO_URI!) // match your .env key

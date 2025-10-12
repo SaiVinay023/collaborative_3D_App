@@ -77,7 +77,8 @@ const project = await Project.findByIdAndUpdate(
         url: modelUrl,
         transform: {}
       }
-    }
+    },
+     modelUrl: modelUrl
   },
   { new: true }
 );
