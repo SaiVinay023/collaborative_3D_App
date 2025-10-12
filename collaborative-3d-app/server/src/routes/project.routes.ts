@@ -65,25 +65,23 @@ router.post("/upload", upload.single('file'), async (req, res) => {
       return res.status(400).json({ error: 'Project ID required' });
     }
 
-    const modelUrl = `http://localhost:4000/uploads/${file.filename}`;
+const modelUrl = `http://localhost:4000/uploads/${file.filename}`;
 
+// Update project with model URL
+const project = await Project.findByIdAndUpdate(
+  projectId,
+  { 
+    $push: { 
+      models: { 
+        name: file.originalname,
+        url: modelUrl,
+        transform: {}
+      }
+    }
+  },
+  { new: true }
+);
 
-    // Update project with model URL
-    const modelUrl = `/uploads/${file.filename}`;
-    const project = await Project.findByIdAndUpdate(
-      projectId,
-      { 
-        $push: { 
-          models: { 
-            name: file.originalname,
-            url: modelUrl,
-            transform: {}
-          }
-        },
-        modelUrl: modelUrl // Add this for backward compatibility
-      },
-      { new: true }
-    );
 
     if (!project) {
       return res.status(404).json({ error: 'Project not found' });
