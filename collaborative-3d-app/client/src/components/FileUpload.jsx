@@ -66,9 +66,21 @@ export default function FileUpload({
 
   return (
     <div
-      className={`upload-zone ${dragActive ? 'active' : ''}`}
-      onClick={() => inputRef.current.click()}
-      {...(enableDragDrop
+      className={`
+        relative overflow-hidden
+        border-2 border-dashed rounded-xl p-8 
+        text-center cursor-pointer
+        transition-all duration-300 ease-in-out
+        ${dragActive 
+          ? 'border-cyan-400 bg-cyan-400/10 scale-105 shadow-lg shadow-cyan-400/25' 
+          : uploading
+            ? 'border-yellow-400 bg-yellow-400/5'
+            : 'border-gray-600 bg-gray-800/30 hover:border-gray-500 hover:bg-gray-800/50'
+        }
+        backdrop-blur-sm
+      `}
+      onClick={() => !uploading && inputRef.current.click()}
+      {...(enableDragDrop && !uploading
         ? {
             onDragEnter: handleDrag,
             onDragOver: handleDrag,
@@ -76,25 +88,87 @@ export default function FileUpload({
             onDrop: handleDrop,
           }
         : {})}
-      style={{
-        border: '2px dashed gray',
-        padding: '20px',
-        textAlign: 'center',
-        borderRadius: '5px',
-        cursor: 'pointer',
-      }}
     >
+      {/* Hidden file input */}
       <input
         ref={inputRef}
         type="file"
         accept=".stl"
-        style={{ display: 'none' }}
+        className="hidden"
         onChange={(e) => e.target.files[0] && handleFile(e.target.files[0])}
+        disabled={uploading}
       />
 
-      {uploading
-        ? <p>{enableServerUpload ? `Uploading ${progress}%` : 'Processing...'}</p>
-        : <p>Drag STL file here or click to upload</p>}
+      {/* Upload content */}
+      <div className="flex flex-col items-center space-y-4">
+        
+        {/* Icon */}
+        <div className={`text-6xl transition-all duration-300 ${
+          dragActive 
+            ? 'scale-110 animate-bounce' 
+            : uploading 
+              ? 'animate-pulse'
+              : 'hover:scale-105'
+        }`}>
+          {uploading ? (
+            <div className="relative">
+              <div className="text-yellow-400">⏳</div>
+              <div className="absolute inset-0 animate-spin">
+                <div className="w-12 h-12 border-2 border-cyan-400 border-t-transparent rounded-full mx-auto mt-3"></div>
+              </div>
+            </div>
+          ) : dragActive ? (
+            <span className="text-cyan-400">⬇️</span>
+          ) : (
+            <span className="text-gray-400">📁</span>
+          )}
+        </div>
+
+        {/* Text content */}
+        {uploading ? (
+          <div className="space-y-2">
+            <div className="text-cyan-400 font-medium">
+              {enableServerUpload ? `Uploading ${progress}%` : 'Processing STL file...'}
+            </div>
+            {enableServerUpload && (
+              <div className="w-48 bg-gray-700 rounded-full h-2 overflow-hidden">
+                <div 
+                  className="h-full bg-gradient-to-r from-cyan-500 to-blue-500 transition-all duration-300 ease-out"
+                  style={{ width: `${progress}%` }}
+                ></div>
+              </div>
+            )}
+            <div className="text-gray-500 text-sm">
+              Please wait...
+            </div>
+          </div>
+        ) : (
+          <div className="space-y-2">
+            <div className={`text-lg font-medium transition-colors ${
+              dragActive ? 'text-cyan-400' : 'text-gray-300'
+            }`}>
+              {dragActive ? 'Drop your STL file here' : 'Upload STL Model'}
+            </div>
+            <div className="text-gray-500 text-sm">
+              Drag & drop your .stl file or{' '}
+              <span className="text-cyan-400 underline">click to browse</span>
+            </div>
+            <div className="flex items-center justify-center space-x-4 text-xs text-gray-600 pt-2">
+              <span className="flex items-center">
+                ✓ STL format only
+              </span>
+              <span className="flex items-center">
+                ✓ Max 50MB
+              </span>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Drag overlay effect */}
+      {dragActive && (
+        <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/20 to-blue-500/20 animate-pulse pointer-events-none"></div>
+      )}
     </div>
   )
 }
