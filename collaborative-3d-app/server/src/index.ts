@@ -14,8 +14,8 @@ dotenv.config();
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use("/projects", projectRoutes);
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+app.use("/projects", projectRoutes);
 
 const server = http.createServer(app);
 const io = new Server(server, { cors: { origin: "*" } });
