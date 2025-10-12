@@ -24,7 +24,8 @@ const ProjectSchema = new Schema({
   models: [ModelSchema],
   annotations: [AnnotationSchema],
   chat: [ChatSchema],
-  cameraState: { type: Object }
+  cameraState: { type: Object },
+  modelUrl: { type: String }
 }, { timestamps: true });
 
 export default mongoose.model("Project", ProjectSchema);

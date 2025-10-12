@@ -1,16 +1,20 @@
+import dotenv from "dotenv";
 import express from "express";
 import http from "http";
 import { Server } from "socket.io";
 import cors from "cors";
 import mongoose from "mongoose";
-import dotenv from "dotenv";
 import projectRoutes from "./routes/project.routes";
 import Project from "./models/Project";
+import path from 'path';
+
 
 dotenv.config();
+
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 app.use("/projects", projectRoutes);
 
 const server = http.createServer(app);
@@ -51,7 +55,11 @@ io.on("connection", (socket) => {
   });
 });
 
-const PORT = process.env.PORT || 4000;
-mongoose.connect(process.env.MONGO_URL || "").then(() => {
-  server.listen(PORT, () => console.log(`Server listening on ${PORT}`));
-}).catch(err => console.error("mongo connect err", err));
+const PORT = process.env.PORT || 4000; // ✅ define PORT
+
+mongoose
+  .connect(process.env.MONGO_URI!) // match your .env key
+  .then(() => {
+    app.listen(PORT, () => console.log(`🚀 Server listening on port ${PORT}`));
+  })
+  .catch((err) => console.error("mongo connect err", err));
