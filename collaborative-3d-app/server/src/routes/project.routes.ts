@@ -65,6 +65,9 @@ router.post("/upload", upload.single('file'), async (req, res) => {
       return res.status(400).json({ error: 'Project ID required' });
     }
 
+    const modelUrl = `http://localhost:4000/uploads/${file.filename}`;
+
+
     // Update project with model URL
     const modelUrl = `/uploads/${file.filename}`;
     const project = await Project.findByIdAndUpdate(
