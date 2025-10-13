@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import FileUpload from '../FileUpload' // Import existing component
-import Chat from '../Chat' // Import existing component
+import FileUpload from '../FileUpload'
+import Chat from '../Chat'
+import Button from '../ui/Button' 
 
 const Sidebar = ({ 
   projects, 
@@ -62,8 +63,8 @@ const Sidebar = ({
               />
               <button 
                 onClick={handleCreateProject}
-                className="w-full bg-cyan-500 hover:bg-cyan-600 text-black px-4 py-2 rounded-lg font-medium transition-colors"
-              >
+                className="w-full"
+                variant="primary" >
                 Create Project
               </button>
             </div>
