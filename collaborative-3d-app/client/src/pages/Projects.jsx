@@ -46,7 +46,9 @@ export default function Projects() {
           annotations={annotations}
         />
         {/* Main 3D Viewer Area */}
-        <main className="flex-1 relative bg-gray-900">
+          <main className="flex-1 flex justify-center items-center bg-gray-900">
+          <div className="bg-[#161b22] rounded-xl shadow-lg p-2 m-2 border border-gray-700 flex items-center justify-center"
+            style={{ width: "calc(100vw - 350px)", height: "80vh", maxWidth: "1500px" }}>
           {currentProject?.modelUrl ? (
             <Canvas
               camera={{ position: [5, 5, 5], fov: 75 }}
@@ -73,6 +75,7 @@ export default function Projects() {
               </div>
             </div>
           )}
+          </div>
         </main>
       </div>
     </div>
