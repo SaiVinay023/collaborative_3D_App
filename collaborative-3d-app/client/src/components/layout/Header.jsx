@@ -1,8 +1,11 @@
 import React from "react";
 import { Share2, LogOut } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+
 
 const Header = () => {
   const user = localStorage.getItem("username") || "Anonymous";
+  const navigate = useNavigate();
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-[#161b22] border-b border-gray-800 px-6 h-14 flex items-center justify-between">
@@ -34,7 +37,7 @@ const Header = () => {
         <button
           onClick={() => {
             localStorage.removeItem("username");
-            window.location.reload();
+            navigate("/");
           }}
           className="flex items-center text-sm text-red-400 hover:text-red-300 transition"
         >
