@@ -5,8 +5,14 @@ import Sidebar from "../components/layout/Sidebar";
 import STLViewer from "../components/STLViewer";
 import Chat from "../components/Chat";
 import { useProject } from "../hooks/useProject";
+import { useMemo } from "react";
+import io from "socket.io-client";
+
+const API = import.meta.env.VITE_API_URL || "http://localhost:4000";
+
 
 export default function Projects() {
+  const socket = useMemo(() => io(API), []);
   const [annotations, setAnnotations] = useState([]);
   const {
     projects,
@@ -81,8 +87,8 @@ export default function Projects() {
         </div>
       </div>
       <div className="flex-1 overflow-y-auto px-6 py-4">
-        <h3 className="text-lg font-semibold mb-2">Project Chat</h3>
-        <Chat projectId={currentProject?._id} />
+        <h3 className="text-lg font-semibol d mb-2">Project Chat</h3>
+        <Chat socket={socket} projectId={currentProject?._id} />
       </div>
       <div className="border-t border-gray-700 px-6 py-4 text-sm text-gray-400">
         <h4 className="font-semibold text-white mb-2">Project Settings</h4>

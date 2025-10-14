@@ -14,9 +14,6 @@ const Header = () => {
         <h1 className="text-lg font-semibold text-cyan-400 tracking-wide">
           3D Collaborator
         </h1>
-        <span className="text-xs text-gray-500">
-          • powered by <span className="text-cyan-500 font-medium">Perplexity Labs</span>
-        </span>
       </div>
 
       {/* User & Controls */}

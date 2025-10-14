@@ -9,7 +9,6 @@ import AnnotationMarker from "../components/AnnotationMarker";
 const API = import.meta.env.VITE_API_URL || "http://localhost:4000";
 
 function Scene({ annotations, onDoubleClick }) {
-  // simple cube primitive; model loader can be swapped in later
   return (
     <>
       <ambientLight intensity={0.6} />
