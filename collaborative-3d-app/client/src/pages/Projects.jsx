@@ -5,14 +5,12 @@ import Sidebar from "../components/layout/Sidebar";
 import STLViewer from "../components/STLViewer";
 import Chat from "../components/Chat";
 import { useProject } from "../hooks/useProject";
-import { useMemo } from "react";
-import io from "socket.io-client";
-
-const API = import.meta.env.VITE_API_URL || "http://localhost:4000";
-
+import { useSocket } from "../hooks/useSocket";
+import { API } from "../utils/constants";
 
 export default function Projects() {
-  const socket = useMemo(() => io(API), []);
+
+  const socket = useSocket();
   const [annotations, setAnnotations] = useState([]);
   const {
     projects,
