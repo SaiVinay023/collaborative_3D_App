@@ -9,7 +9,9 @@ export default function STLViewer({
   annotations = [],
   onAddAnnotation,
   position = { x: 0, y: 0, z: 0 },
-  setPosition
+  setPosition,
+  cameraView,
+  setCameraView
 }) {
   const meshRef = useRef()
   const { scene } = useThree()
@@ -17,6 +19,8 @@ export default function STLViewer({
   const [error, setError] = useState(false)
   const [model, setModel] = useState(null)
   const [errorMessage, setErrorMessage] = useState('')
+  const { camera } = useThree();
+
 
   // Lighting setup
   useEffect(() => {
@@ -34,6 +38,36 @@ export default function STLViewer({
       scene.remove(ambientLight, keyLight, rimLight)
     }
   }, [scene])
+
+  useEffect(() => {
+  if (!cameraView || !camera) return;
+  switch (cameraView) {
+    case 'top':
+      camera.position.set(0, 10, 0);
+      break;
+    case 'bottom':
+      camera.position.set(0, -10, 0);
+      break;
+    case 'left':
+      camera.position.set(-10, 0, 0);
+      break;
+    case 'right':
+      camera.position.set(10, 0, 0);
+      break;
+    case 'front':
+      camera.position.set(0, 0, 10);
+      break;
+    case 'back':
+      camera.position.set(0, 0, -10);
+      break;
+    default:
+      break;
+  }
+  camera.lookAt(0, 0, 0);
+
+  // Optionally reset view state so multiple clicks on same button work
+  setCameraView(null);
+}, [cameraView, camera, setCameraView]);
 
   // STL loading (with HEAD fetch)
   useEffect(() => {

@@ -12,10 +12,10 @@ export default function Projects() {
 
   const socket = useSocket();
   const [annotations, setAnnotations] = useState([]);
-    // State for object manipulation
   const [pos, setPos] = useState({ x: 0, y: 0, z: 0 });
   const [rotation, setRotation] = useState({ x: 0, y: 0, z: 0 });
   const [scale, setScale] = useState({ x: 1, y: 1, z: 1 });
+  const [cameraView, setCameraView] = useState(null);
   const {
     projects,
     currentProject,
@@ -112,6 +112,8 @@ export default function Projects() {
           modelUrl={currentProject.modelUrl}
           annotations={annotations}
           onAddAnnotation={handleAddAnnotation}
+          cameraView={cameraView}
+          setCameraView={setCameraView} 
           // Optionally pass pos/rotation/scale
         />
       </Canvas>
@@ -121,6 +123,14 @@ export default function Projects() {
       </div>
     )}
   </div>
+    <div className="flex items-center gap-4 mt-4">
+  <button className="bg-gray-700 text-white px-3 py-1 rounded" onClick={() => setCameraView('top')}>Top</button>
+  <button className="bg-gray-700 text-white px-3 py-1 rounded" onClick={() => setCameraView('bottom')}>Bottom</button>
+  <button className="bg-gray-700 text-white px-3 py-1 rounded" onClick={() => setCameraView('left')}>Left</button>
+  <button className="bg-gray-700 text-white px-3 py-1 rounded" onClick={() => setCameraView('right')}>Right</button>
+  <button className="bg-gray-700 text-white px-3 py-1 rounded" onClick={() => setCameraView('front')}>Front</button>
+  <button className="bg-gray-700 text-white px-3 py-1 rounded" onClick={() => setCameraView('back')}>Back</button>
+</div>
 
   {/* Object manipulation panel, matched width & right below viewer */}
 <div
