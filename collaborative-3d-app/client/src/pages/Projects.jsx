@@ -46,13 +46,29 @@ export default function Projects() {
   function handleScaleObject(axis, value) {
     setScale((prev) => ({ ...prev, [axis]: value }));
   }
-  function saveScene() {
+  /*function saveScene() {
     alert(
       `Object state saved!\nPosition: ${JSON.stringify(
         pos
       )}\nRotation: ${JSON.stringify(rotation)}\nScale: ${JSON.stringify(scale)}`
     );
-  }
+  } */
+ function saveScene() {
+  if (!currentProject) return;
+  fetch(`${API}/projects/${currentProject._id}/transform`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      position: pos,
+      rotation: rotation,
+      scale: scale
+    })
+  })
+    .then(res => res.json())
+    .then(data => { alert("Object state saved!"); })
+    .catch(err => { alert("Save failed!"); });
+}
+
 
 
   return (
