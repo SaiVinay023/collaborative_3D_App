@@ -2,14 +2,13 @@ import React, { useEffect, useRef, useState, Suspense } from "react";
 import { Canvas, useThree } from "@react-three/fiber";
 import { OrbitControls, Html } from "@react-three/drei";
 import { useParams } from "react-router-dom";
-import io from "socket.io-client";
 import Chat from "../components/Chat";
 import AnnotationMarker from "../components/AnnotationMarker";
+import { useSocket } from "../hooks/useSocket";
+import { API } from "../utils/constants";
 
-const API = import.meta.env.VITE_API_URL || "http://localhost:4000";
 
 function Scene({ annotations, onDoubleClick }) {
-  // simple cube primitive; model loader can be swapped in later
   return (
     <>
       <ambientLight intensity={0.6} />

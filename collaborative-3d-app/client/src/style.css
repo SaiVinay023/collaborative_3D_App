@@ -1,6 +1,9 @@
-/* client/src/styles.css */
-body {
-  margin: 0;
-  font-family: sans-serif;
-  background-color: #f9f9f9;
+/* stylelint-disable at-rule-no-unknown */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* stylelint-enable at-rule-no-unknown */
+
+html, body {
+  @apply bg-[#191c1e] text-white;
 }
