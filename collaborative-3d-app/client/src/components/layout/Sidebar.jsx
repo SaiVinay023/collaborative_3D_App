@@ -16,8 +16,7 @@ const Sidebar = ({
 
   const tabs = [
     { id: "projects", label: "Projects", icon: "📁" },
-    { id: "tools", label: "Tools", icon: "🛠️" },
-    { id: "chat", label: "Chat", icon: "💬" },
+    { id: "tools", label: "Tools", icon: "🛠️" }
   ];
 
   const handleCreateProject = () => {
