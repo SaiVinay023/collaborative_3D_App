@@ -17,10 +17,10 @@ export default function Login() {
       <form onSubmit={handleLogin} className="bg-white p-6 rounded shadow w-80">
         <h2 className="text-xl font-semibold mb-4 text-center">Enter your name</h2>
         <input
-          className="w-full border p-2 rounded mb-3"
-          placeholder="Alice or Bob"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+            className="w-full border p-2 rounded mb-3 bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+            placeholder="Alice or Bob"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
         />
         <button className="w-full bg-blue-600 text-white py-2 rounded">Continue</button>
       </form>
