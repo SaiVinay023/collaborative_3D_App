@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@react-three/drei": "^9.58.0",
+    "@react-three/drei": "^9.122.0",
     "@react-three/fiber": "^8.0.27",
     "@vitejs/plugin-react": "^5.0.4",
     "axios": "^1.12.2",
