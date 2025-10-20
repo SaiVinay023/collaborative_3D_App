@@ -51,6 +51,26 @@ router.get("/:id", async (req, res) => {
   res.json(p);
 });
 
+// Save transform (position, rotation, scale) for a project
+router.post("/:id/transform", async (req, res) => {
+  const { position, rotation, scale } = req.body;
+  try {
+    // Save to transform field on Project
+    const project = await Project.findByIdAndUpdate(
+      req.params.id,
+      { $set: { transform: { position, rotation, scale } } },
+      { new: true }
+    );
+    if (!project) {
+      return res.status(404).json({ error: "Project not found" });
+    }
+    res.json({ message: "Transform saved!", transform: project.transform });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to save transform" });
+  }
+});
+
+
 // NEW: File upload endpoint
 router.post("/upload", upload.single('file'), async (req, res) => {
   try {
