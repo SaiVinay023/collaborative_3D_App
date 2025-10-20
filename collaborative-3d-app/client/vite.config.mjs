@@ -12,7 +12,8 @@ export default defineConfig({
     rollupOptions: {
       external: ["@react-three/fiber",
         "@react-three/drei",
-        "lucide-react"
+        "lucide-react",
+        "socket.io-client"
       ]
     }
   }
