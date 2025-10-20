@@ -8,27 +8,40 @@ import projectRoutes from "./routes/project.routes";
 import Project from "./models/Project";
 import path from 'path';
 
-
 dotenv.config();
 
+const allowedOrigins = [
+  "http://localhost:5173", // Vite dev server
+  "https://cerulean-ganache-ef99e7.netlify.app/"
+];
+
 const app = express();
-app.use(cors());
+
+app.use(cors({
+  origin: allowedOrigins,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));
 app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 app.use("/projects", projectRoutes);
 
 const server = http.createServer(app);
-const io = new Server(server, { cors: { origin: "*" } });
+
+const io = new Server(server, {
+  cors: {
+    origin: allowedOrigins,
+    methods: ["GET", "POST"]
+  }
+});
 
 io.on("connection", (socket) => {
   console.log("socket connected:", socket.id);
   socket.on("joinProject", async ({ projectId, user }) => {
     socket.join(projectId);
     socket.data.user = user;
-    // send current project
     const project = await Project.findById(projectId);
     socket.emit("project:load", project);
-    // broadcast presence
     const clients = await io.in(projectId).fetchSockets();
     io.to(projectId).emit("presence:update", clients.map(c => c.data.user));
   });
@@ -55,11 +68,11 @@ io.on("connection", (socket) => {
   });
 });
 
-const PORT = process.env.PORT || 4000; // ✅ define PORT
+const PORT = process.env.PORT || 4000;
 
 mongoose
-  .connect(process.env.MONGO_URI!) // match your .env key
+  .connect(process.env.MONGO_URI!)
   .then(() => {
-    app.listen(PORT, () => console.log(`🚀 Server listening on port ${PORT}`));
+    server.listen(PORT, () => console.log(`🚀 Server listening on port ${PORT}`));
   })
   .catch((err) => console.error("mongo connect err", err));
