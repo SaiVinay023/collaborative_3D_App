@@ -112,7 +112,7 @@ Quick start:
 2. **Start server and client:**
     ```bash
     cd server && npm run dev
-    cd ../client && npm start
+    cd ../client && npm run dev
     ```
 3. **Login, join/create project**
 4. **Upload STL and view in 3D**
