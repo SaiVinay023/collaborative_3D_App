@@ -12,7 +12,7 @@ dotenv.config();
 
 const allowedOrigins = [
   "http://localhost:5173", // Vite dev server
-  "https://cerulean-ganache-ef99e7.netlify.app/"
+  "https://cerulean-ganache-ef99e7.netlify.app"
 ];
 
 const app = express();
@@ -31,7 +31,8 @@ const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
     origin: allowedOrigins,
-    methods: ["GET", "POST"]
+    methods: ["GET", "POST"],
+    credentials: true
   }
 });
 
