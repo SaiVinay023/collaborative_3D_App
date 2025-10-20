@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react'
 import axios from 'axios'
+import { API } from '../utils/constants'
 
 export default function FileUpload({
   projectId,
@@ -28,7 +29,7 @@ export default function FileUpload({
 
       setUploading(true)
       try {
-        const res = await axios.post('/api/projects/upload', formData, {
+        const res = await axios.post(`${API}/projects/upload`, formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
           onUploadProgress: (event) =>
             setProgress(Math.round((event.loaded / event.total) * 100)),
