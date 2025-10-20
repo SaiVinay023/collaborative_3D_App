@@ -11,7 +11,8 @@ export default defineConfig({
   build: {
     rollupOptions: {
       external: ["@react-three/fiber",
-        "@react-three/drei"
+        "@react-three/drei",
+        "lucide-react"
       ]
     }
   }
