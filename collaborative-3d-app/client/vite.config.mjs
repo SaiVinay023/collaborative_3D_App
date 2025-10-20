@@ -10,7 +10,9 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      external: ["@react-three/fiber"]
+      external: ["@react-three/fiber",
+        "@react-three/drei"
+      ]
     }
   }
 });
