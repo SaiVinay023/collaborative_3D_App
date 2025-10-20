@@ -17,6 +17,18 @@ const allowedOrigins = [
 
 const app = express();
 
+function dynamicOrigin(origin, callback) {
+  if (
+    allowedOrigins.includes(origin) ||
+    // Allow all branch/deploy preview URLs for your site
+    (origin && origin.endsWith('.netlify.app') && origin.includes('cerulean-ganache-ef99e7'))
+  ) {
+    callback(null, true);
+  } else {
+    callback(new Error('Not allowed by CORS'));
+  }
+}
+
 app.use(cors({
   origin: allowedOrigins,
   methods: ["GET", "POST", "PUT", "DELETE"],
