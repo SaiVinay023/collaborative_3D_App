@@ -6,6 +6,9 @@ Quick start:
 - Start server: `cd server && npm install && npm run dev`
 - Start client: `cd client && npm install && npm run dev`
 
+## DEPLOYMENT 
+                frontend:  https://cerulean-ganache-ef99e7.netlify.app/
+              Backend: https://collaborative-3d-app.onrender.com
 
 
 ***
