@@ -144,4 +144,3 @@ Quick start:
 - Designed for extensibility: support for future geometry types, export/import, access control.
 
 ***
-
